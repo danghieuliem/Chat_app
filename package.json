@@ -1,0 +1,29 @@
+{
+    "name": "app_nt",
+    "version": "1.0.0",
+    "description": "- [ ] 1 : chạy thử socket IO trên nodejs <br>\r - [ ] 2 : tạo databases<br>\r - [ ] 3 : tạo rest api dang nhap\\dang ky<br>\r - [ ] 4 : cho 2 account chat với nhau bằng socket IO<br>\r - [ ] 5 : cho nhiều account chat với nhau trong cùng một group<br>\r - [ ] 6 : code để lưu chat history, chatgroup ID , etc ...",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "devStart": "nodemon server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/danghieuliem/Chat_app.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/danghieuliem/Chat_app/issues"
+    },
+    "homepage": "https://github.com/danghieuliem/Chat_app#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "http": "0.0.1-security",
+        "path": "^0.12.7",
+        "socket.io": "^3.0.4"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.6"
+    }
+}
