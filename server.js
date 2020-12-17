@@ -18,5 +18,5 @@ io.on("connection", socket => {
 });
 
 http.listen(PORT, () => {
-    console.log("http://192.168.1.8:" + PORT);
+    console.log("http://192.168.1.8:" + PORT); //test ket noi voi dt qua wifi
 });
