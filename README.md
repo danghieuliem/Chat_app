@@ -1,5 +1,5 @@
 # Chat_app
-- [ ] 1 : chạy thử socket IO trên nodejs <br>
+- [x] 1 : chạy thử socket IO trên nodejs <br>
 - [ ] 2 : tạo databases<br>
 - [ ] 3 : tạo rest api dang nhap\dang ky<br>
 - [ ] 4 : cho 2 account chat với nhau bằng socket IO<br>
