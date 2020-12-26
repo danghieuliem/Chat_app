@@ -1,8 +1,8 @@
-// const {Router} = require('express')
+const {Router} = require('express')
 
-// const accRouter = require('./AccRouters')
-// const router = Router({mergeParams:true})
+const accRouter = require('./AccRouters')
+const router = Router({mergeParams:true})
 
-// router.use('/accounts',accRouter)
+router.use('/accounts',accRouter)
 
-// module.exports = router
+module.exports = router

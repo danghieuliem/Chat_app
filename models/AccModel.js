@@ -29,7 +29,7 @@ const accountSchema = new mongoose.Schema({
     },
     deleted: {
         type: Boolean,
-        default: true
+        default: false
     },
     createdAt: {
         type: Date,
