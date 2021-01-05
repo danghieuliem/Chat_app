@@ -30,6 +30,6 @@ const messengeSchema = new mongoose.Schema({
     },
 });
 
-const messenge = mongoose.model("message", messengeSchema);
+const messenge = mongoose.model("message", messsengeSchema);
 
 module.exports = messenge

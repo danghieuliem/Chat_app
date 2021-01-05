@@ -7,7 +7,7 @@ const router = Router({ mergeParams: true });
 const {requireAcc} = require('../MiddleWares/Auth')
 
 router.post('/',(req,res)=>{
-    const {email,password,name,avatar,token,tokenNext} = req.body
+    const {email,password,name} = req.body
     const hashPassword = md5(password)
     
     accServices.findAccByEmail(email)
@@ -19,7 +19,7 @@ router.post('/',(req,res)=>{
                     return Promise.resolve(true)
                 })
                 .then(()=>{
-                    return accServices.createAccount({email,password : hashPassword,name,avatar,token,tokenNext})
+                      accServices.createAccount({email,password : hashPassword,name})
                                 .then(createdAcc=>res.status(201).json(createdAcc))
                 })
                 .catch(err=>res.status(500).json(err))
@@ -38,9 +38,10 @@ router
         if(!acc){
             res.status(400).json({Message:"Wrong user"})
         }
+        if(acc.password !== hashPassword)
+            res.status(400).json({Message:"wrong password"})
 
         const token = jwt.sign(acc.toJSON(),JWT_SECRET)
-
         res.send(token)
     })
 module.exports = router

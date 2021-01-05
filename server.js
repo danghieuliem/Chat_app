@@ -1,11 +1,15 @@
 const express = require('express')
-const app = express()
-const http = require('http').createServer(app)
-const io = require('socket.io')(http)
+const http = require('http')
 const path = require('path')
-const port = process.env.PORT || 5000
 const mongoose = require('mongoose')
 const router = require('./routers/index')
+const socket = require('socket.io')
+
+const port = process.env.PORT || 5000
+
+const app = express()
+const server = http.createServer(app)
+const io = socket(server)
 
 mongoose.connect(
     "mongodb://localhost:27017/chatapp",
@@ -19,8 +23,8 @@ db.once("open",()=>{
 
 const users = {}
 
-
-io.on("connection",socket=>{
+io.on
+("connection",socket=>{
     socket.on('new-user',name=>{
         users[socket.id] = name
         socket.broadcast.emit('user-connected',name)
@@ -36,8 +40,8 @@ io.on("connection",socket=>{
 
 app.use(express.static(path.join(__dirname,"static")))
 app.use(express.json());
-app.use('/',router)
+app.use('/api',router)
 
-app.listen(port,()=>{
+server.listen(port,()=>{
     console.log(port)
 })

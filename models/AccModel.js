@@ -17,16 +17,6 @@ const accountSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    token: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    tokenNext: {
-        type: String,
-        required: true,
-        unique: true
-    },
     deleted: {
         type: Boolean,
         default: false
@@ -35,6 +25,14 @@ const accountSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    chatBoxs:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "chatBox",
+    }],
+    messages:[{
+        type : mongoose.Schema.Types.ObjectId,
+        ref: "message"
+    }]
 });
 
 const account = mongoose.model("account", accountSchema);

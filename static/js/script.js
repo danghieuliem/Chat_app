@@ -1,8 +1,43 @@
+// required login
+const getAcc = async()=>{
+    try{
+     const token = localStorage.getItem('token')
+     const response = await fetch('/api/accounts/authentication',{
+         method:'GET',
+         mode : 'cors',
+         cache : 'no-cache',
+         credentials :'same-origin',
+         headers:{
+             "Content-Type":"application/json",
+             "x-token":token,
+         },
+         redirect:'follow',
+         referrerPolicy:'no-referrer'
+     })
+
+     console.log(response.status)
+     if(response.status === 400){
+         location.href = '/login_register.html'
+     }
+
+     const acc = await response.json()
+     document.getElementById('account').innerText = `${acc.name}`
+     localStorage.setItem('name',acc.name)
+     console.log(localStorage.getItem('name'))
+    } catch(err){
+        console.log(err)
+    }
+ }
+ getAcc()
+
+
+
+//socket IO
 const socket = io()
 
 var count_message = 0
 
-const name = prompt("What's your name ?")
+const name = localStorage.getItem('name')
 socket.emit('new-user',name)
 
 const connect_message = (message)=>{
