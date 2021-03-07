@@ -1,15 +1,23 @@
-// const account  = require("../models/AccModel");
+const message = require('../models/MessageModel')
 
-// const createAccount = ({email,password,name})=>{
-//    return account.create({email,password,name})
-// }
+const create = ({content , type , chatBox_ID , acc_ID}) =>{
+    return message.create({content , type , chatBox_ID , acc_ID})
+}
 
-// const findAccByEmail = (email) =>{
-//     return account.findOne({email:email}).exec();
-// }
+const findByID = (ID) => {
+    return message.findById(ID)
+}
 
-// const findAccByID = (ID)=>{
-//     return account.findById(ID)
-// }
+const find = ({acc_ID , chatBox_ID}) => {
+    return message.findOne({acc_ID,chatBox_ID})
+}
 
-// module.exports = {createAccount , findAccByEmail , findAccByID}
+const findAll = () => {
+    return message.find({})
+}
+
+const findAllByCBID = ({chatBox_ID}) => {
+    return message.find({chatBox_ID})
+}
+
+module.exports = {create, findByID , find,findAll, findAllByCBID}

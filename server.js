@@ -21,21 +21,24 @@ db.once("open",()=>{
     console.log("connected to MongoDB")
 })
 
-const users = {}
-
 io.on
 ("connection",socket=>{
-    socket.on('new-user',name=>{
-        users[socket.id] = name
-        socket.broadcast.emit('user-connected',name)
+    socket.on('status' , arrChatBox => {
+        try{
+            let arr = []
+            arrChatBox.forEach(chatBox =>{
+                if(socket.adapter.rooms.has(chatBox._chatBoxID))
+                {
+                    arr.push(chatBox._chatBoxID)
+                    socket.broadcast.to(chatBox._chatBoxID).emit('online',[chatBox._chatBoxID])
+                }
+                socket.join(chatBox._chatBoxID)
+            })
+            socket.emit('online',arr)
+        }
+        catch(err){console.log(err)}
     })
-    socket.on('chat-message',message=>{
-        socket.broadcast.emit('chat-message',message,users[socket.id])
-    })
-    socket.on('disconnect',()=>{
-        socket.broadcast.emit('user-disconnected',users[socket.id])
-        delete users[socket.id]
-    })
+   
 })
 
 app.use(express.static(path.join(__dirname,"static")))

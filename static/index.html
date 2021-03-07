@@ -1,5 +1,3 @@
-
-  
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +59,7 @@
                     <div class="card mb-sm-3 mb-md-0 contacts_card">
                     
                         <div class="card-body contacts_body">
-                            <ui class="contacts">
+                            <ui class="contacts" id="groupChat">
                                 <li class="active">
                                     <div class="d-flex bd-highlight">
                                         <div class="img_cont">
@@ -96,18 +94,17 @@
                         <div class="card-header msg_head">
                             <div class="d-flex bd-highlight">
                                 <div class="img_cont">
-                                    <img src="./img/7.jpg" class="rounded-circle user_img">
-                                    <span class="online_icon"></span>
+                                    <img id="imageChatting" src="./img/7.jpg" class="rounded-circle user_img">
                                 </div>
                                 <div class="user_info">
-                                    <span>Chat with Khanh Cute phô mai que chấm tương ớt</span>
-                                    <p id="count_message" >0 Messages</p>
+                                    <span id="nameChatting">Chat with Nạnh Nùng Gơn</span>
                                 </div>
                                 <div class="video_cam">
                                     <span><i class="fas fa-video"></i></span>
                                     <span><i class="fas fa-phone"></i></span>
                                 </div>
                             </div>
+                            
                             <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
                             <div class="action_menu">
                                 <ul>

@@ -1,4 +1,4 @@
-// required login
+const socket = io()
 const getAcc = async()=>{
     try{
      const token = localStorage.getItem('token')
@@ -15,40 +15,84 @@ const getAcc = async()=>{
          referrerPolicy:'no-referrer'
      })
 
-     console.log(response.status)
      if(response.status === 400){
          location.href = '/login_register.html'
      }
 
      const acc = await response.json()
-     document.getElementById('account').innerText = `${acc.name}`
-     localStorage.setItem('name',acc.name)
-     console.log(localStorage.getItem('name'))
-    } catch(err){
-        console.log(err)
+     return acc
+    } 
+
+    catch(err){
+        location.href = '/login_register.html'
     }
  }
- getAcc()
-
-
-
-//socket IO
-const socket = io()
-
-var count_message = 0
-
-const name = localStorage.getItem('name')
-socket.emit('new-user',name)
-
-const connect_message = (message)=>{
-    const _content=`
-        <div class="d-flex justify-content-center mb-4">
-            ${message}
-        </div>
-    `
-    document.getElementById("main_chat").innerHTML += _content
-    document.getElementById("main_chat").scrollTo(0, document.getElementById("main_chat").scrollHeight)
+const check_login = async() =>{
+    const account = await getAcc()
+    document.getElementById('account').innerText = `${account.name}`
 }
+
+const getChatBoxs = async () => {
+    try{
+       const token = localStorage.getItem('token')
+       const response =  await fetch('/api/chatBoxs',{
+           method : 'GET',
+            mode : 'cors',
+            cache : 'no-cache',
+            credentials : 'same-origin',
+            redirect : 'follow',
+            headers:{
+               "Content-Type":"application/json",
+               "x-token":token
+            },
+            referrerPolicy:'no-referrer'
+       })
+       if(response.status === 200){
+            const arrChatBox = await response.json()
+            var content = ''
+            arrChatBox.forEach(res =>{
+                content += `<li id="${res._chatBoxID}" onclick="activeChatBox(this)">
+                    <div class="d-flex bd-highlight">
+                        <div class="img_cont">
+                            <img src="${res.avatar}" class="rounded-circle user_img">
+                            <span class="online_icon offline"></span>
+                        </div>
+                        <div class="user_info">
+                            <span>${res.name}</span>
+                            <p>${res.name} is <span id="statusInfo">offline</span></p>
+                        </div>
+                    </div>
+                </li>`
+            })
+            document.getElementById('groupChat').innerHTML = content
+            socket.emit('status',arrChatBox)
+       }     
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+const activeChatBox = (element) =>{
+    const activeChatBox = document.getElementsByClassName('active')[0]
+    if(activeChatBox != undefined)
+        activeChatBox.classList.remove('active')
+    element.classList.add('active')
+    const name = element.querySelector(".user_info span").innerText
+    const image = element.querySelector(".img_cont img").getAttribute("src")
+    document.getElementById('nameChatting').innerText = name
+    document.getElementById('imageChatting').setAttribute("src",image)
+}
+
+socket.on('online',(arr)=>{
+    arr.forEach(res =>{
+        document.querySelector(`[id="${res}"] .img_cont span`).classList.remove('offline')
+        document.querySelector(`[id="${res}"] #statusInfo`).innerText = "Online"
+    })
+})
+
+check_login()
+getChatBoxs()
 
 const create_my_message = (content,time)=>{
     const _content =`
@@ -95,20 +139,10 @@ $("#send_btn").on("click", function(e) {
     }
 });
 
-connect_message("You joined")
-
-socket.on('user-connected',name=>{
-    connect_message(`${name} joined`)
-})
 
 
-socket.on("chat-message", (message , name) => {
-    create_parter_message(message,name)
-});
 
-socket.on('user-disconnected',name=>{
-    connect_message(`${name} disconnected`)
-})
+
 
 
 

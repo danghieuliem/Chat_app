@@ -4,11 +4,9 @@ const jwt = require('jsonwebtoken')
 
 const requireAcc  = (req,res,next)=>{
     const token = req.headers['x-token']
-
     try{
         const encoded = jwt.verify(token,JWT_SECRET)
-
-        accServices.findAccByID(encoded._id).then((acc)=>{
+        accServices.findByID(encoded._id).then((acc)=>{
             req.acc = acc
             next()
         })

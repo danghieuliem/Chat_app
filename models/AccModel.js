@@ -17,21 +17,17 @@ const accountSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    deleted: {
-        type: Boolean,
-        default: false
-    },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     },
     chatBoxs:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "chatBox",
     }],
-    messages:[{
-        type : mongoose.Schema.Types.ObjectId,
-        ref: "message"
+    friends :[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"account"
     }]
 });
 

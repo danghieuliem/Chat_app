@@ -1,9 +1,17 @@
 const mongoose = require("mongoose");
 
-const messengeSchema = new mongoose.Schema({
+const messageSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true,
+    },
+    type: {
+        type: String,
+        enum: ['file', 'text']
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     },
     chatBox_ID: {
         type: mongoose.Schema.Types.ObjectId,
@@ -15,21 +23,8 @@ const messengeSchema = new mongoose.Schema({
         ref: "account",
         required: true
     },
-    type: {
-        type: String,
-        enum: ['file', 'text']
-    },
-    deleted: {
-        type: Enumerator,
-        required: true,
-        unique: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
 });
 
-const messenge = mongoose.model("message", messsengeSchema);
+const message = mongoose.model("message", messageSchema);
 
-module.exports = messenge
+module.exports = message

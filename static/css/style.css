@@ -103,6 +103,9 @@ html {
     margin-bottom: 15px !important;
 }
 
+.contacts li:hover{
+    background-color: rgb(44, 43, 43);
+}
 .active {
     background-color: rgba(0, 0, 0, 0.3);
 }
@@ -260,4 +263,7 @@ html {
         margin-bottom: 15px !important;
     }
 }
-
+ #statusInfo{
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+ }
