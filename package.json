@@ -14,16 +14,4 @@
     "mongoose": "^5.11.8",
     "socket.io": "^3.0.4"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.6"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/danghieuliem/Chat_app.git"
-  },
-  "bugs": {
-    "url": "https://github.com/danghieuliem/Chat_app/issues"
-  },
-  "homepage": "https://github.com/danghieuliem/Chat_app#readme",
-  "description": ""
 }
